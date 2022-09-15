@@ -1,7 +1,7 @@
-function ProfilePage() {
-   return (
-      <div>Auth page</div>
-   )
- }
- 
- export default ProfilePage;
+import AuthForm from '../components/auth/auth-form';
+
+function AuthPage() {
+  return <AuthForm />;
+}
+
+export default AuthPage;
