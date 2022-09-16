@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import ProfileForm from './profile-form';
 import classes from './user-profile.module.css';
 // client side code
@@ -6,6 +7,8 @@ import classes from './user-profile.module.css';
 //    getSession} from 'next-auth/react'
 // import { useState, useEffect } from "react";
 function UserProfile() {
+   const router = useRouter();
+  
    // client side code
 //   // Redirect away if NOT auth
 //   const [isLoading,setIsLoading] = useState(true);
@@ -26,10 +29,25 @@ function UserProfile() {
 //    if(isLoading) {
 //       return <p className={classes.profile}>Loading....</p>
 //    }
+async function handleChangePassword(passwordData) {
+   const response = await fetch('/api/user/change-password', {
+      method: 'PATCH',
+      body: JSON.stringify(passwordData),
+      headers: {
+         'Content-Type': 'application/json'
+      }
+   });
+   const data = await response.json();
+   if(data) {
+      //set some arouteruth state"
+      router.replace("/");
+   }
+   console.log(data);
+}
   return (
     <section className={classes.profile}>
       <h1>Your User Profile</h1>
-      <ProfileForm />
+      <ProfileForm onChangePassword={handleChangePassword}/>
     </section>
   );
 }
